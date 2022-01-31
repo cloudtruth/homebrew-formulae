@@ -1,5 +1,5 @@
 class CloudtruthCli < Formula
-  desc "A CLI for interacting with the CloudTruth configuration management service"
+  desc "CLI for interacting with the CloudTruth configuration management service"
   homepage "https://github.com/cloudtruth/cloudtruth-cli"
   url "https://github.com/cloudtruth/cloudtruth-cli/archive/refs/tags/1.1.6.tar.gz"
   sha256 "97ddc0107c1d234a00f4921fccbce42360ec1e1527c12b21ccdc9fad38e6bd86"
