@@ -8,7 +8,8 @@ class CloudtruthCli < Formula
   bottle do
     root_url "https://github.com/cloudtruth/homebrew-formulae/releases/download/cloudtruth-cli-1.1.6"
     rebuild 2
-    sha256 cellar: :any_skip_relocation, big_sur: "d8a3aa7fa4a42c729e81aeb5698fc7745c9236514ec686f5b75b6d1ee866a2fa"
+    sha256 cellar: :any_skip_relocation, big_sur:  "eb15092582ef5711d328074872abcc48c9d4ec34162761f722085284764b0873"
+    sha256 cellar: :any_skip_relocation, catalina: "0adfa7f48d82bc0638c8728e70b01bd57ace089e7f00804577677866655d5d2c"
   end
 
   depends_on "rust" => :build
