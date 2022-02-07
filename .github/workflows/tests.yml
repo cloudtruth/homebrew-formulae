@@ -21,7 +21,7 @@ jobs:
     steps:
       - if: github.event_name == 'pull_request'
         run: |
-          if [[ "${{ matrix.os }}"" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
+          if [[ "${{ matrix.os }}" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
             export CARGO_TARGET="aarch64-apple-darwin"
             # hack uname so bottling works
             export PATH=./bin:$PATH
@@ -56,7 +56,7 @@ jobs:
 
       - if: github.event_name == 'pull_request'
         run: |
-          if [[ "${{ matrix.os }}"" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
+          if [[ "${{ matrix.os }}" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
             export CARGO_TARGET="aarch64-apple-darwin"
             # hack uname so bottling works
             export PATH=./bin:$PATH
