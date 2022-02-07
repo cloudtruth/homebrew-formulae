@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Hack to allow us to cross compile bottles for apple arm64 on the x86 github actions VM
+
+set -e
+
+if [[ "$*" == "-m" ]]; then
+    echo arm64
+else
+    /usr/bin/uname "$@"
+fi

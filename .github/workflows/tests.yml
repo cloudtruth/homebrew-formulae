@@ -21,24 +21,13 @@ jobs:
     steps:
       - if: github.event_name == 'pull_request'
         run: |
-          echo $PATH
-          export PATH=.:$PATH
-          type uname
-
           if [[ "${{ matrix.os }}"" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
             export CARGO_TARGET="aarch64-apple-darwin"
-            cat > ./uname <<-'EOF'
-            #!/usr/bin/env bash
-            if [[ "$*" == "-m" ]]; then
-              echo arm64
-            else
-              /usr/bin/uname "$@"
-            fi
-          EOF
-            chmod +x ./uname
+            # hack uname so bottling works
+            export PATH=./bin:$PATH
+            echo "Cross compiling for $CARGO_TARGET"
           fi
-          
-          echo $CARGO_TARGET
+          echo $PATH
           type uname
           uname -m
           uname -s
@@ -67,16 +56,11 @@ jobs:
 
       - if: github.event_name == 'pull_request'
         run: |
-          echo $PATH
-          if [[ "$${{ matrix.os }}"" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
+          if [[ "${{ matrix.os }}"" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
             export CARGO_TARGET="aarch64-apple-darwin"
-            function uname {
-              if [[ "$*" == "-m" ]]; then
-                echo arm64
-              else
-                /usr/bin/uname "$@"
-              fi
-            }
+            # hack uname so bottling works
+            export PATH=./bin:$PATH
+            echo "Cross compiling for $CARGO_TARGET"
           fi
           brew test-bot --only-formulae
 
