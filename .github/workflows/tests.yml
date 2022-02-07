@@ -19,6 +19,7 @@ jobs:
             arch: arm64
     runs-on: ${{ matrix.os }}
     steps:
+      - uses: actions/checkout@v2
       - if: github.event_name == 'pull_request'
         run: |
           if [[ "${{ matrix.os }}" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
