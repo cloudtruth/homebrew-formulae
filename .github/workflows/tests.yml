@@ -30,7 +30,7 @@ jobs:
           fi
           echo $PATH
           pwd
-          ls -laR
+          ls -laR ..
           type uname
           uname -m
           uname -s
