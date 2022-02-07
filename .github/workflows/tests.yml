@@ -25,9 +25,12 @@ jobs:
             export CARGO_TARGET="aarch64-apple-darwin"
             # hack uname so bottling works
             export PATH=./bin:$PATH
+            hash -r
             echo "Cross compiling for $CARGO_TARGET"
           fi
           echo $PATH
+          pwd
+          ls -laR
           type uname
           uname -m
           uname -s
