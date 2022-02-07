@@ -22,6 +22,21 @@ jobs:
       - if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
       
+      - if: github.event_name == 'pull_request'
+        run: |
+          if [[ "${{ matrix.os }}" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
+            export "CARGO_BUILD_TARGET=aarch64-apple-darwin" >> $GITHUB_ENV
+            # hack uname so bottling works
+            echo "$(pwd)/bin" >> $GITHUB_PATH
+          fi
+
+      - if: github.event_name == 'pull_request'
+        run: |
+          echo $PATH
+          echo $CARGO_BUILD_TARGET
+          uname -m
+          uname -s
+
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -46,19 +61,10 @@ jobs:
 
       - if: github.event_name == 'pull_request'
         run: |
-          if [[ "${{ matrix.os }}" == "macos-11.0" && "${{ matrix.arch }}" == "arm64" ]]; then
-            export CARGO_TARGET="aarch64-apple-darwin"
-            # hack uname so bottling works
-            export PATH=./bin:$PATH
-            echo "Cross compiling for $CARGO_TARGET"
-            uname -m
-            uname -s
+          if [[ -n $CARGO_BUILD_TARGET ]]; then
+            echo "Cross compiling for $CARGO_BUILD_TARGET"
           fi
           brew test-bot --only-formulae
-
-      # Do a second run on macos to bottle an arm binary
-      - run: CARGO_TARGET=aarch64-apple-darwin brew test-bot --only-formulae
-        if: github.event_name == 'pull_request' && matrix.os == 'macos-11.0'
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
